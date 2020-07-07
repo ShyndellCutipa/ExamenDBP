@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="javascript.js"></script>
+    <style>
+        table, td {
+            border: 1px solid black;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+
+<div id="div1"><h2>Mostrando Tabla</h2></div>
+<table id="myTable">
+    <tr>
+        <td>Row1 cell1</td>
+        <td>Row1 cell2</td>
+        <td>Row1 cell2</td>
+    </tr>
+    <tr>
+        <td>Row2 cell1</td>
+        <td>Row2 cell2</td>
+        <td>Row1 cell2</td>
+    </tr>
+    <tr>
+        <td>Row3 cell1</td>
+        <td>Row3 cell2</td>
+        <td>Row1 cell2</td>
+    </tr>
+	    <tr>
+        <td>Row4 cell1</td>
+        <td>Row4 cell2</td>
+        <td>Row4 cell2</td>
+    </tr>
+	    <tr>
+        <td>Row5 cell1</td>
+        <td>Row5 cell2</td>
+        <td>Row5 cell2</td>
+    </tr>
+</table>
+<br>
+
+<button type="button" onclick="myFunction()">mostrarDatos</button>
+
+<script>
+    $(document).ready(function(){
+        $("button").click(function(){
+            $.ajax({ //usamos ajax llamar al servicioWeb
+                type: "GET",
+                uri: 'CategoryService/FindAll',
+                dataType: 'aplication/json',
+                success: function (result) {
+                    var table = document.getElementById("myTable");
+                    $.each(result, function(i, obj) { //i : los indices del arreglo,obj es la lista de datos de cada arreglo.
+                        alert(obj.name);
+                        var row = table.insertRow(0);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell2 = row.insertCell(2);
+						var cell3 = row.insertCell(3);
+                        var cell4 = row.insertCell(4);
+                        var cell5 = row.insertCell(5);
+                        cell1.innerHTML = obj.id;
+                        cell2.innerHTML = obj.name;
+						cell3.innerHTML = obj.fc;
+						cell3.innerHTML = obj.fa;
+                        cell3.innerHTML = obj.description;
+                    });
+                }
+            });
+        });
+    });
+
+</script>
+
+</body>
+</html>
